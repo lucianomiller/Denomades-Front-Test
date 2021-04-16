@@ -17,17 +17,18 @@ const useStyles = makeStyles({
     margin:30
   },
   media: {
-    height: 140,
+    height: 400,
   },
 });
 
-export default function MediaCard({props}) {
+export default function MediaCard({props, currency,currencies}) {
   const classes = useStyles();
   console.log(props)
+  console.log(currency)
 
   return (
     <Card className={classes.root} elevation={5}>
-        <CardHeader title={<Typography gutterBottom variant="h3" component="h3">{props.name} </Typography>} />
+        <CardHeader title={<Typography  variant="h4" component="h2" style={{fontWeight:"bold"}} >{props.name} </Typography>} />
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -38,15 +39,16 @@ export default function MediaCard({props}) {
           <Typography gutterBottom variant="h5" component="h2">
             {props.city}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2"  >
             {props.description}
           </Typography>          
-          <div style={{display:'flex', justifyContent:'center'}}>
-            <Typography gutterBottom variant="h5" component="h4">
-              {props.currency }
+          <div style={{display:'flex', justifyContent:'center', alignItems:"baseline", marginTop:"10px"}}>
+            <Typography  variant="h5" style={{fontWeight:"bold"}}>
+              {currency }
             </Typography>
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.price}
+             <pre> </pre>
+            <Typography  variant="h4" component="h2">
+              {currencies && (props.price * currencies[props.currency+currency]).toFixed(2) }
             </Typography>
           </div>
         </CardContent>
