@@ -12,14 +12,13 @@ import axios from "axios"
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 900,
-    minWidth:350,    
-    margin:30,   
+    maxWidth: 800,
+    minWidth:250,    
+    margin:20,
+    minHeight:700
   },
   media: {
-    height: 450,
-    display:"grid",
-    justifyContent:"center",
+    height: 450,    
   }  
 });
 

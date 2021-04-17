@@ -8,7 +8,6 @@ import {useSelector, useDispatch } from "react-redux"
 
 function App() {
   const dispatch=useDispatch()
-
   const {activities}= useSelector(state=>state.activities)  
 
   useEffect(() => {    
@@ -16,14 +15,16 @@ function App() {
   }, [])
 
   return (
-    <div style={{display:"flex", justifyContent:"center"}}>
-      <div className="App" style={{display:"flex",flexDirection:"column", justifyContent: "center", margin:30}} >  
+    <div>
         <Select />
-        <div>
+      <div className="App" >  
+        <div className="page-content"> 
           { activities.length>0?
               activities.map(activity=>{
                 return <Card  key={activity.id} props={activity} />
-              }):  "Cargando" } 
+              })
+              :"Cargando"
+          } 
         </div>
       </div>
     </div>
