@@ -1,42 +1,52 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 
+import {useSelector } from "react-redux"
+import axios from "axios"
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 1000,
-    minWidth:300,
-    margin:30
+    maxWidth: 900,
+    minWidth:350,    
+    margin:30,   
   },
   media: {
-    height: 400,
-  },
+    height: 450,
+    display:"grid",
+    justifyContent:"center",
+  }  
 });
 
-export default function MediaCard({props, currency,currencies}) {
-  const classes = useStyles();
-  console.log(props)
-  console.log(currency)
+export default function MediaCard({props }) {
+  const classes = useStyles(); 
+  
+  const {currency} =useSelector(state=>state.currency)
+
+  const [currencies, setCurrencies]=useState()
+    useEffect(()=>{      
+      axios.get("https://denomadesapi.herokuapp.com/currencies")
+      .then((resp)=>{  setCurrencies(resp.data)})
+    },[])
 
   return (
-    <Card className={classes.root} elevation={5}>
-        <CardHeader title={<Typography  variant="h4" component="h2" style={{fontWeight:"bold"}} >{props.name} </Typography>} />
-      <CardActionArea>
-        <CardMedia
+    <Card className={classes.root} elevation={10}>
+      <CardHeader title={
+          <Typography  variant="h4"  style={{fontWeight:"bold"}} >
+            {props.name}
+          </Typography>} />
+      <CardActionArea >
+        <CardMedia 
           className={classes.media}
-          image={props.imageUrl}
-          
+          image={props.imageUrl}          
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" >
             {props.city}
           </Typography>
           <Typography variant="body2"  >
@@ -47,20 +57,12 @@ export default function MediaCard({props, currency,currencies}) {
               {currency }
             </Typography>
              <pre> </pre>
-            <Typography  variant="h4" component="h2">
+            <Typography  variant="h4">
               {currencies && (props.price * currencies[props.currency+currency]).toFixed(2) }
             </Typography>
           </div>
         </CardContent>
-      </CardActionArea>
-      {/* <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions> */}
+      </CardActionArea>    
     </Card>
   );
 }
