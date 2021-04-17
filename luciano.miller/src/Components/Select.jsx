@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent:"space-around",
     padding:15,
-    borderBottomLeftRadius:"15px",
-    borderBottomRightRadius:"15px",
+    borderBottomLeftRadius:"7px",
+    borderBottomRightRadius:"7px",
     marginBottom:10,
     alignItems:"baseline"
   } 
